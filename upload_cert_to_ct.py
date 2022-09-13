@@ -1,9 +1,9 @@
 #!/bin/env python3
 import argparse
 import base64
-import json
 from cryptography import x509
 from cryptography.hazmat.primitives import serialization
+import json
 import requests
 
 ct_log_list_url = 'https://www.gstatic.com/ct/log_list/v3/log_list.json'
@@ -29,6 +29,7 @@ def find_log_by_id(ct_log_list,log_id):
 def submit_to_log(log, log_request):
     resp = requests.post(f"{log['url']}ct/v1/add-chain", data=json.dumps(log_request))
     print(resp.text)
+
 if __name__ == "__main__":
   parser = argparse.ArgumentParser(description='Script to upload cert to CT Logs')
   parser.add_argument('--cert',type=str, help='Path to PEM cert', default='cert.pem')
